@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 
 import { formatCurrency } from '../../utils/helpers';
 
@@ -6,7 +7,6 @@ import CreateCabinForm from './CreateCabinForm';
 import useDeleteCabin from './useDeleteCabin';
 import useCreateCabin from './useCreateCabin';
 import Modal from '../../ui/Modal';
-import ConfirmDelete from '../../ui/ConfirmDelete';
 
 const TableRow = styled.div`
   display: grid;
@@ -48,6 +48,7 @@ const Discount = styled.div`
 `;
 
 export default function CabinRow({ cabin }) {
+  const [showForm, setShowForm] = useState(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
   const { isCreating, createCabin } = useCreateCabin();
 
@@ -73,46 +74,48 @@ export default function CabinRow({ cabin }) {
   }
 
   return (
-    <TableRow role="row">
-      <Img src={image} />
-      <Cabin>{name}</Cabin>
-      <div>Fits up to {maxCapacity} guests</div>
-      <Price>{formatCurrency(regularPrice)}</Price>
-      {discount ? (
-        <Discount>{formatCurrency(discount)}</Discount>
-      ) : (
-        <span>&mdash;</span>
-      )}
-      <div className="flex">
-        <button
-          disabled={isCreating}
-          className="btn mr-3 bg-amber-600"
-          onClick={() => handleDublicateCabin()}
-        >
-          Copy
-        </button>
-        <Modal>
-          <Modal.Open opens="edit">
-            <button className="btn mr-3 bg-emerald-500">Edit</button>
-          </Modal.Open>
-          <Modal.Window name="edit">
-            <CreateCabinForm cabinToEdit={cabin} />
-          </Modal.Window>
-
-          <Modal.Open>
-            <button className="btn" disabled={isDeleting}>
-              Delete
-            </button>
-          </Modal.Open>
-          <Modal.Window>
-            <ConfirmDelete
-              resourceName="cabins"
-              disabled={isDeleting}
-              onConfirm={() => deleteCabin(cabinId)}
-            />
-          </Modal.Window>
+    <>
+      <TableRow role="row">
+        <Img src={image} />
+        <Cabin>{name}</Cabin>
+        <div>Fits up to {maxCapacity} guests</div>
+        <Price>{formatCurrency(regularPrice)}</Price>
+        {discount ? (
+          <Discount>{formatCurrency(discount)}</Discount>
+        ) : (
+          <span>&mdash;</span>
+        )}
+        <div className="flex">
+          <button
+            disabled={isCreating}
+            className="btn mr-3 bg-amber-600"
+            onClick={() => handleDublicateCabin()}
+          >
+            Copy
+          </button>
+          <button
+            className="btn mr-3 bg-emerald-500"
+            onClick={() => setShowForm((form) => !form)}
+          >
+            Edit
+          </button>
+          <button
+            className="btn"
+            onClick={() => deleteCabin(cabinId)}
+            disabled={isDeleting}
+          >
+            Delete
+          </button>
+        </div>
+      </TableRow>
+      {showForm && (
+        <Modal onClose={() => setShowForm(false)}>
+          <CreateCabinForm
+            cabinToEdit={cabin}
+            onCloseModal={() => setShowForm(false)}
+          />
         </Modal>
-      </div>
-    </TableRow>
+      )}
+    </>
   );
 }

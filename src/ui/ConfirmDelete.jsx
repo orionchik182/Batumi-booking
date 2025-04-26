@@ -1,6 +1,5 @@
-import styled from "styled-components";
-import Button from "./Button";
-import Heading from "./Heading";
+import styled from 'styled-components';
+import Button from './Button';
 
 const StyledConfirmDelete = styled.div`
   width: 40rem;
@@ -20,22 +19,30 @@ const StyledConfirmDelete = styled.div`
   }
 `;
 
-function ConfirmDelete({ resourceName, onConfirm, disabled }) {
+function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal }) {
   return (
     <StyledConfirmDelete>
-      <Heading as="h3">Delete {resourceName}</Heading>
+      <div className="h3">Delete {resourceName}</div>
       <p>
         Are you sure you want to delete this {resourceName} permanently? This
         action cannot be undone.
       </p>
 
       <div>
-        <Button variation="secondary" disabled={disabled}>
+        <button
+          className="btn bg-gray-50 text-black"
+          disabled={disabled}
+          onClick={onCloseModal}
+        >
           Cancel
-        </Button>
-        <Button variation="danger" disabled={disabled}>
+        </button>
+        <button
+          className="btn bg-red-700"
+          disabled={disabled}
+          onClick={onConfirm}
+        >
           Delete
-        </Button>
+        </button>
       </div>
     </StyledConfirmDelete>
   );

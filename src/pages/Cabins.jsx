@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import CabinTable from '../features/cabins/CabinTable';
-import CreateCabinForm from '../features/cabins/CreateCabinForm';
+
+import AddCabin from '../features/cabins/AddCabin';
 
 function Cabins() {
-  const [showForm, setShowForm] = useState(false);
   return (
     <>
       <div className="row-hor">
@@ -12,10 +11,7 @@ function Cabins() {
       </div>
       <div className="row-ver">
         <CabinTable />
-        <button className="btn" onClick={() => setShowForm((show) => !show)}>
-          Add new cabin
-        </button>
-        {showForm && <CreateCabinForm />}
+        <AddCabin />
       </div>
     </>
   );
