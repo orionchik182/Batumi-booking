@@ -59,7 +59,7 @@ function CheckinBooking() {
         : totalPrice,
     };
 
-    console.log('Submitting update:', updates);
+    
 
     checkin({
       bookingId,
