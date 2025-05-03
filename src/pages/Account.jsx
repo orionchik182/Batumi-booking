@@ -1,3 +1,6 @@
+import UpdateUserDataForm from '../features/authentication/UpdateUserDataForm';
+import UpdatePasswordForm from '../features/authentication/UpdatePasswordForm';
+
 function Account() {
   return (
     <>
@@ -5,17 +8,14 @@ function Account() {
 
       <div className="row-ver">
         <h3 className="h3">Update user data</h3>
-        <p>Update user data form</p>
-        {/* <button className="btn">Click me</button> */}
+
+        <UpdateUserDataForm />
       </div>
 
       <div className="row-ver">
         <h3 className="h3">Update password</h3>
-        <p>Update user password form</p>
+        <UpdatePasswordForm />
       </div>
-      {/* <div className="w-50 rounded bg-linear-60 from-blue-500 to-green-500 p-8 text-2xl font-bold text-white">
-        Angled Gradient
-      </div> */}
     </>
   );
 }
