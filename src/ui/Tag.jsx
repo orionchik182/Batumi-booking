@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Tag = styled.span`
+const StyledTag = styled.span`
   width: fit-content;
   text-transform: uppercase;
   font-size: 1.1rem;
@@ -9,4 +9,16 @@ const Tag = styled.span`
   border-radius: 100px;
 `;
 
-export default Tag;
+const statusClassMap = {
+  unconfirmed: 'bg-blue-100 text-blue-700',
+  'checked-in': 'bg-green-100 text-green-700',
+  'checked-out': 'bg-yellow-100 text-yellow-700',
+};
+
+export default function Tag({ status, children }) {
+  return (
+    <StyledTag className={`${statusClassMap[status]}`}>
+      {children}
+    </StyledTag>
+  );
+}

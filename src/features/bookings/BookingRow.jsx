@@ -17,6 +17,7 @@ import {
 } from 'react-icons/hi2';
 import ConfirmDelete from '../../ui/ConfirmDelete';
 import useCheckout from '../check-in-out/useCheckOut';
+import Tag from '../../ui/Tag';
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -63,12 +64,6 @@ function BookingRow({
   const { checkout, isCheckingOut } = useCheckout();
   const { deleteBooking, isDeletingBooking } = useDeleteBooking();
 
-  const statusClassMap = {
-    unconfirmed: 'bg-blue-100 text-blue-700',
-    'checked-in': 'bg-green-100 text-green-700',
-    'checked-out': 'bg-yellow-100 text-yellow-700',
-  };
-
   return (
     <Table.Row>
       <Cabin>{cabinName}</Cabin>
@@ -91,11 +86,7 @@ function BookingRow({
         </span>
       </Stacked>
 
-      <span
-        className={`${statusClassMap[status]} w-fit rounded-full px-5 py-[0.4rem] text-[1.1rem] font-semibold uppercase`}
-      >
-        {status?.replace('-', ' ')}
-      </span>
+      <Tag status={status}>{status?.replace('-', ' ')}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
 
