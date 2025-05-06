@@ -3,6 +3,7 @@ import BookingTable from '../features/bookings/BookingTable';
 import useBookingsByCabinId from '../features/cabins/useBookingsByCabinId';
 import Spinner from '../ui/Spinner';
 import Table from '../ui/Table';
+import AddBooking from '../features/bookings/AddBooking';
 
 export default function Cabin() {
   const { bookings, isLoading } = useBookingsByCabinId();
@@ -19,7 +20,7 @@ export default function Cabin() {
           Back
         </button>
 
-        <button className="btn">Add new booking</button>
+        <AddBooking />
       </div>
     </div>
   );

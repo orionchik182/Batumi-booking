@@ -79,7 +79,11 @@ function SignupForm() {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <button className="btn bg-white text-black" disabled={isLoading} onClick={reset}>
+        <button
+          className="btn bg-white text-black"
+          disabled={isLoading}
+          onClick={reset}
+        >
           Cancel
         </button>
         <button className="btn" disabled={isLoading}>

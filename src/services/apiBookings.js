@@ -119,6 +119,41 @@ export async function getStaysTodayActivity() {
   return data;
 }
 
+export async function createBooking(booking) {
+  const { email, fullName, nationalID, nationality, countryFlag, ...rest } = booking;
+  console.log(booking);
+  const formattedBooking = {
+    ...rest,
+    cabinId: Number(booking.cabinId),
+    cabinPrice: Number(booking.cabinPrice),
+    extrasPrice: Number(booking.extrasPrice),
+    totalPrice: Number(booking.totalPrice),
+    numNights: Number(booking.numNights),
+    numGuests: Number(booking.numGuests),
+    status: booking.status || 'unconfirmed',
+    isPaid: Boolean(booking.isPaid),
+    hasBreakfast: Boolean(booking.hasBreakfast),
+    startDate: new Date(booking.startDate).toISOString(),
+    endDate: new Date(booking.endDate).toISOString(),
+    observations: booking.observations || '',
+    guestId: Number(booking.guestId), // ← важное!
+  };
+
+  console.log('📦 formattedBooking to insert:', formattedBooking);
+
+  const { data, error } = await supabase
+    .from('bookings')
+    .insert([formattedBooking])
+    .select();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Booking could not be created');
+  }
+
+  return data;
+}
+
 export async function updateBooking(id, obj) {
   const { data, error } = await supabase
     .from('bookings')

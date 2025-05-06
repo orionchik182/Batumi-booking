@@ -108,7 +108,7 @@ export default function CabinRow({ cabin }) {
       ) : (
         <span>&mdash;</span>
       )}
-      <div className="flex">
+      <div className="flex" onClick={(e) => e.stopPropagation()}>
         {/* <button
           disabled={isCreating}
           className="btn mr-3 bg-amber-600"

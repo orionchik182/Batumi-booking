@@ -11,6 +11,10 @@ export function useSignup() {
         "Account successfully created! Please verufy the new account from the user's email address.",
       );
     },
+    onError: (err) => {
+      console.error(err);
+      toast.error(err.message || 'Failed to create user');
+    },
   });
 
   return { signup, isLoading };
