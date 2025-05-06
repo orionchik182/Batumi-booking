@@ -14,6 +14,7 @@ import { Toaster } from 'react-hot-toast';
 import Booking from './pages/Booking';
 import Checkin from './pages/Checkin';
 import ProtectedRoute from './ui/ProtectedRoute';
+import Cabin from './pages/Cabin';
 
 // Старый вариант стилизации который сейчас уже не используют!
 // import styled from 'styled-components';
@@ -49,6 +50,7 @@ function App() {
             <Route path="bookings/:bookingId" element={<Booking />} />
             <Route path="checkin/:bookingId" element={<Checkin />} />
             <Route path="cabins" element={<Cabins />} />
+            <Route path="cabins/:cabinId" element={<Cabin />} />
             <Route path="users" element={<Users />} />
             <Route path="settings" element={<Settings />} />
             <Route path="account" element={<Account />} />

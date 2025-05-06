@@ -59,9 +59,11 @@ export default function CabinTable() {
       : (a[field] - b[field]) * modifier,
   );
 
+  
+
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 bg-white text-2xl">
-      <header className="grid grid-cols-[0.6fr_1.8fr_2.2fr_1fr_1fr_1fr] items-center gap-[2.4rem] border-b border-gray-100 bg-gray-50 px-[2.4rem] py-[1.6rem] font-semibold tracking-[0.4px] text-gray-600 uppercase">
+      <header className="grid grid-cols-[0.1fr_3fr_2.5fr_1.2fr_1fr_2fr] items-center gap-[2.4rem] border-b border-gray-100 bg-gray-50 px-[2.4rem] py-[1.6rem] font-semibold tracking-[0.4px] text-gray-600 uppercase">
         <div></div>
         <div>Cabin</div>
         <div>Capacity</div>
@@ -70,7 +72,7 @@ export default function CabinTable() {
         <div></div>
       </header>
       {sortedCabins.map((cabin) => (
-        <CabinRow cabin={cabin} key={cabin.id} />
+        <CabinRow cabin={cabin} key={cabin.id}/>
       ))}
     </div>
   );

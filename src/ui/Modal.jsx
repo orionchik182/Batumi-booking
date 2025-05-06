@@ -71,7 +71,12 @@ function Modal({ children }) {
 function Open({ children, opens: opensWindowName }) {
   const { open } = useContext(ModalContext);
 
-  return cloneElement(children, { onClick: () => open(opensWindowName) });
+  return cloneElement(children, {
+    onClick: (e) => {
+      e.stopPropagation();
+      open(opensWindowName);
+    },
+  });
 }
 
 function Window({ children, name }) {
@@ -81,7 +86,7 @@ function Window({ children, name }) {
   if (name !== openName) return null;
 
   return createPortal(
-    <Overlay>
+    <Overlay onClick={(e) => e.stopPropagation()}>
       <StyledModal ref={ref}>
         <Button onClick={close}>
           <HiXMark />

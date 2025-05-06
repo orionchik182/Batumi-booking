@@ -59,13 +59,14 @@ function BookingRow({
     guests: { fullName: guestName, email },
     cabins: { name: cabinName },
   },
+  
 }) {
   const navigate = useNavigate();
   const { checkout, isCheckingOut } = useCheckout();
   const { deleteBooking, isDeletingBooking } = useDeleteBooking();
 
   return (
-    <Table.Row>
+    <Table.Row highlighted={status === 'checked-in'}>
       <Cabin>{cabinName}</Cabin>
 
       <Stacked>

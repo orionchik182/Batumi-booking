@@ -13,13 +13,13 @@ const StyledTable = styled.div`
 const CommonRow = styled.div`
   display: grid;
   grid-template-columns: ${(props) => props.columns};
-  column-gap: 2.4rem;
+  column-gap: 2rem;
   align-items: center;
   transition: none;
 `;
 
 const StyledHeader = styled(CommonRow)`
-  padding: 1.6rem 2.4rem;
+  padding: 1.6rem 2rem;
 
   background-color: var(--color-grey-50);
   border-bottom: 1px solid var(--color-grey-100);
@@ -31,6 +31,8 @@ const StyledHeader = styled(CommonRow)`
 
 const StyledRow = styled(CommonRow)`
   padding: 1.2rem 2.4rem;
+  background-color: ${({ highlighted }) =>
+    highlighted ? 'lightgreen' : 'transparent'};
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
@@ -78,10 +80,12 @@ function Header({ children }) {
     </StyledHeader>
   );
 }
-function Row({ children }) {
+function Row({ children, ...props }) {
+  console.log(props);
   const { columns } = useContext(TableContext);
+
   return (
-    <StyledRow role="row" columns={columns}>
+    <StyledRow role="row" columns={columns} {...props}>
       {children}
     </StyledRow>
   );
