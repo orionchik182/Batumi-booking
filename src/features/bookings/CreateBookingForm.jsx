@@ -67,10 +67,11 @@ function CreateBookingForm({ cabinToEdit = {}, onCloseModal }) {
     const start = new Date(watchStart);
     const end = new Date(watchEnd);
     const numNights = differenceInCalendarDays(end, start);
+    const numGuests = Number(getValues('numGuests'));
 
-    if (numNights < 1) return;
+    if (numNights < 1 || numGuests < 1) return;
 
-    const extras = watchBreakfast ? numNights * breakfastPrice : 0;
+    const extras = watchBreakfast ? numNights * breakfastPrice * numGuests : 0;
     const total = numNights * cabinPrice + extras;
 
     setValue('totalPrice', total);
@@ -83,6 +84,7 @@ function CreateBookingForm({ cabinToEdit = {}, onCloseModal }) {
     setValue,
     cabinPrice,
     breakfastPrice,
+    getValues,
   ]);
 
   const { data: flagUrl } = useCountryFlagUrl(watchCountry);

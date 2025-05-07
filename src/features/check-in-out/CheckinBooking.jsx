@@ -43,7 +43,10 @@ function CheckinBooking() {
     numGuests,
     hasBreakfast,
     numNights,
+    cabins,
   } = booking;
+
+  console.log(cabins);
 
   const optionalBreakfastPrice =
     settings?.breakfastPrice * numNights * numGuests;
@@ -59,8 +62,6 @@ function CheckinBooking() {
         : totalPrice,
     };
 
-    
-
     checkin({
       bookingId,
       updates,
@@ -70,7 +71,7 @@ function CheckinBooking() {
   return (
     <>
       <div className="row-hor">
-        <div className="h1">Check in booking #{bookingId}</div>
+        <div className="h1">Check in booking into cabin - {cabins.name}</div>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </div>
 

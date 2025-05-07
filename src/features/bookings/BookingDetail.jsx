@@ -33,9 +33,9 @@ function BookingDetail() {
   const navigate = useNavigate();
 
   if (isPending) return <Spinner />;
-  if(!booking) return <Empty resourceName="booking"/>
+  if (!booking) return <Empty resourceName="booking" />;
 
-  const { status, id: bookingId } = booking;
+  const { status, id: bookingId, cabins } = booking;
 
   const statusToTagName = {
     unconfirmed: 'blue',
@@ -47,8 +47,10 @@ function BookingDetail() {
     <>
       <div className="row-hor">
         <HeadingGroup>
-          <div className="h1">Booking #{bookingId}</div>
-          <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
+          <div className="h1">
+            Booking #{bookingId} into cabin - {cabins.name}
+          </div>
+          <Tag status={status}>{status.replace('-', ' ')}</Tag>
         </HeadingGroup>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </div>

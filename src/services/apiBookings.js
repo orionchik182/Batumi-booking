@@ -14,10 +14,11 @@ export async function getBookings({ filter, sortBy, page }) {
   if (filter) query = query.eq(filter.field, filter.value);
 
   // SORT
-  if (sortBy)
-    query = query.order(sortBy.field, {
-      ascending: sortBy.direction === 'asc',
-    });
+  if (sortBy && sortBy.field && sortBy.direction)
+    console.log('sortBy:', sortBy);
+  query = query.order(sortBy.field, {
+    ascending: sortBy.direction === 'asc',
+  });
 
   if (page) {
     const from = (page - 1) * PAGE_SIZE;
@@ -100,11 +101,19 @@ export async function getStaysAfterDate(date) {
 
 // Activity means that there is a check in or a check out today
 export async function getStaysTodayActivity() {
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0);
+  const isoStart = today.toISOString();
+
+  today.setUTCHours(23, 59, 59, 999);
+  const isoEnd = today.toISOString();
+
   const { data, error } = await supabase
     .from('bookings')
     .select('*, guests(fullName, nationality, countryFlag)')
     .or(
-      `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`,
+      `and(status.eq.unconfirmed,startDate.gte.${isoStart},startDate.lte.${isoEnd}),` +
+        `and(status.eq.checked-in,endDate.gte.${isoStart},endDate.lte.${isoEnd})`,
     )
     .order('created_at');
 
@@ -120,7 +129,8 @@ export async function getStaysTodayActivity() {
 }
 
 export async function createBooking(booking) {
-  const { email, fullName, nationalID, nationality, countryFlag, ...rest } = booking;
+  const { email, fullName, nationalID, nationality, countryFlag, ...rest } =
+    booking;
   console.log(booking);
   const formattedBooking = {
     ...rest,

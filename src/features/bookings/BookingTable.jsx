@@ -7,9 +7,7 @@ import Spinner from '../../ui/Spinner';
 
 function BookingTable({ children, isPending, bookings }) {
   if (isPending) return <Spinner />;
-  if (!bookings.length) return <Empty resourceName="bookings" />;
-
-  
+  if (!bookings || !bookings.length) return <Empty resourceName="bookings" />;
 
   return (
     <Menus>
@@ -26,7 +24,7 @@ function BookingTable({ children, isPending, bookings }) {
         <Table.Body
           data={bookings}
           render={(booking) => (
-            <BookingRow key={booking.id} booking={booking}  />
+            <BookingRow key={booking.id} booking={booking} />
           )}
         />
         {children}
